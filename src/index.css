@@ -1,8 +1,20 @@
+/* This is to define global variables */
+:root {
+  --app-color: #F47C8A;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+}
+
+
+html, body, #root {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: #f8f5f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

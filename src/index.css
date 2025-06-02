@@ -1,25 +1,52 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Custom styles for sticky layout */
+
 /* This is to define global variables */
 :root {
-  --app-color: #F47C8A;
+  --app-color: #f47c8a;
+  --bg-color: #f2eded;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  background-color: var(--bg-color);
 }
 
+.main-content {
+  min-height: calc(
+    100vh - 56px - 48px
+  ); /* Adjust header/footer heights if needed */
+}
 
-html, body, #root {
-  min-height: 100vh;
-  min-width: 100vw;
-  background: #f8f5f5;
+html,
+body,
+#root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Custom styles for login page */
+.app-btn-bg-color {
+  background-color: var(--app-color);
+}
+
+.app-btn-bg-color:hover,
+.app-btn-bg-color:focus {
+  background-color: #d95c6a !important; /* Slightly darker than --app-color for effect */
+  color: white !important;
+}
+
+.app-btn-bg-color:disabled {
+  background-color: #df98a0 !important; /* Slightly darker than --app-color for effect */
+  pointer-events: none; /* Prevents interaction */
+  cursor: not-allowed;
 }

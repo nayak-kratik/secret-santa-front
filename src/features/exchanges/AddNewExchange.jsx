@@ -49,6 +49,7 @@ export const AddNewExchange = ({ onAdd }) => {
           className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
           placeholder="Enter Budget"
           name="budget"
+          min="0"
           value={form.budget}
           onChange={handleChange}
         />

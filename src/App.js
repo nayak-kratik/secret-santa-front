@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout";
 import ManageUsers from "./features/users";
 import ManageMatches from "./features/matches";
 import ManageExchanges from "./features/exchanges";
+import AddParticipants from "./features/exchanges/AddParticipants";
 function App() {
   return (
     <Router>
@@ -14,6 +15,10 @@ function App() {
           <Route path="/" element={<ManageUsers />} />
           <Route path="/matches" element={<ManageMatches />} />
           <Route path="/exchanges" element={<ManageExchanges />} />
+          <Route
+            path="/exchange/:id/add-participants"
+            element={<AddParticipants />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>

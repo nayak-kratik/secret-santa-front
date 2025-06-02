@@ -4,10 +4,12 @@ import useExchanges from "../../common/hooks/exchanges/useExchanges";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
 import { AddNewExchange } from "./AddNewExchange";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageExchanges() {
   // Use on the dashboard page: if not admin, redirect to login (/)
   useRequireAdmin();
+  const navigate = useNavigate();
   const { exchanges, loading, error, addExchange, removeExchange } =
     useExchanges();
 
@@ -27,14 +29,29 @@ export default function ManageExchanges() {
           <div key={exchange.id} className="col">
             <div className="card h-100 shadow-sm">
               <div className="card-body">
-                <h5 className="card-title">{exchange.name || "No Name"}</h5>
+                <div className="d-flex justify-content-between">
+                  <h5 className="card-title">{exchange.name || "No Name"}</h5>
+                  <h5 className="card-text text-muted ">
+                    Budget: ${exchange.budget}
+                  </h5>
+                </div>
                 <p className="card-text text-muted">{exchange.description}</p>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => removeExchange(exchange.id)}
-                >
-                  Delete
-                </button>
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn btn-danger m-1"
+                    onClick={() => removeExchange(exchange.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="btn btn-success m-1"
+                    onClick={() =>
+                      navigate(`/exchange/${exchange.id}/add-participants`)
+                    }
+                  >
+                    Add Participants
+                  </button>
+                </div>
               </div>
             </div>
           </div>

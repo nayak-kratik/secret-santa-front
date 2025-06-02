@@ -8,7 +8,7 @@ import { AddNewUser } from "./AddNewUser";
 export default function ManageUsers() {
   // Use on the dashboard page: if not admin, redirect to login (/)
   useRequireAdmin();
-  const { users, loading, error, addUser } = useUsers();
+  const { users, loading, error, addUser, removeUser } = useUsers();
 
   if (loading) return <Loading message="Checking User list..." />;
   if (error) return <ErrorDisplay />;
@@ -28,6 +28,12 @@ export default function ManageUsers() {
               <div className="card-body">
                 <h5 className="card-title">{user.name || "No Name"}</h5>
                 <p className="card-text text-muted">{user.email}</p>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => removeUser(user.id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

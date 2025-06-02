@@ -10,16 +10,13 @@ export default function Login() {
     useLogin();
 
   return (
-    <div className="container d-flex align-items-center justify-content-center min-vh-100">
+    <div className="container d-flex align-items-center justify-content-center py-5">
       <div className="card shadow p-4 border-rounded">
-        <h2 className="mb-2 text-danger fw-bold fs-4 text-center">
-          Welcome on board, Admin 🎅!
+        <h2 className="mb-4 text-danger fw-bold fs-4 text-center">
+          Welcome on board, Admin. 🎁
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label text-muted small">
-              Email
-            </label>
             <input
               type="email"
               className="form-control rounded-pill"
@@ -32,7 +29,7 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="btn btn-lg text-white rounded-pill px-4 font-weight-bold app-btn-bg-color w-100"
+            className="btn btn-lg text-white rounded-pill px-4 font-weight-bold btn-danger w-100"
             disabled={isDisabled}
           >
             Login

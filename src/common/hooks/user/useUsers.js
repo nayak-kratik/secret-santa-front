@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getUsers, createUser } from "../../apis/user";
+import { getUsers, createUser, deleteUser } from "../../apis/user";
 import { toast } from "react-toastify";
 
 export default function useUsers() {
@@ -31,10 +31,20 @@ export default function useUsers() {
     try {
       await createUser(user);
       await fetchUsers();
+      toast.success("User created successfully");
     } catch (error) {
       toast.error(error.message || "Failed to add user");
     }
   };
 
-  return { ...state, addUser };
+  const removeUser = async (userId) => {
+    try {
+      await deleteUser(userId);
+      await fetchUsers();
+      toast.warning("User deleted successfully");
+    } catch (error) {
+      toast.error(error.message || "Failed to delete user");
+    }
+  };
+  return { ...state, addUser, removeUser };
 }

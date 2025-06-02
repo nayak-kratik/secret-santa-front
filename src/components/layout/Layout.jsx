@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
     <div className="">
       <Header />
-      <ToastContainer />
+      <ToastContainer enableMultiContainer={true} position="top-right" />
       <main className="">{children}</main>
       <Footer />
     </div>

@@ -1,8 +1,8 @@
 // src/features/users/AddNewUser.jsx
 import React, { useState } from "react";
 
-export const AddNewUser = ({ onAdd }) => {
-  const [form, setForm] = useState({ name: "", email: "" });
+export const AddNewExchange = ({ onAdd }) => {
+  const [form, setForm] = useState({ name: "", description: "", budget: "" });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -10,9 +10,10 @@ export const AddNewUser = ({ onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim()) return;
+    if (!form.name.trim() || !form.description.trim() || !form.budget.trim())
+      return;
     onAdd(form);
-    setForm({ name: "", email: "" });
+    setForm({ name: "", description: "", budget: "" });
   };
 
   return (
@@ -25,7 +26,7 @@ export const AddNewUser = ({ onAdd }) => {
         <input
           type="text"
           className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
-          placeholder="Enter name"
+          placeholder="Enter Exchange name"
           name="name"
           value={form.name}
           onChange={handleChange}
@@ -34,22 +35,33 @@ export const AddNewUser = ({ onAdd }) => {
       </div>
       <div className="col">
         <input
-          type="email"
+          type="text"
           className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
-          placeholder="Enter email"
-          name="email"
-          value={form.email}
+          placeholder="Enter description"
+          name="description"
+          value={form.description}
           onChange={handleChange}
-          required
+        />
+      </div>
+      <div className="col">
+        <input
+          type="number"
+          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          placeholder="Enter Budget"
+          name="budget"
+          value={form.budget}
+          onChange={handleChange}
         />
       </div>
       <div className="col-auto">
         <button
           type="submit"
           className="btn btn-lg text-white rounded-pill px-4 font-weight-bold btn-danger"
-          disabled={!form.name.trim() || !form.email.trim()}
+          disabled={
+            !form.name.trim() || !form.description.trim() || !form.budget.trim()
+          }
         >
-          Add New User
+          Add New Exchange
         </button>
       </div>
     </form>

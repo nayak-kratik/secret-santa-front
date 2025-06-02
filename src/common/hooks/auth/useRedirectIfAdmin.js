@@ -6,8 +6,8 @@ import { getCookie } from "../../utils/cookie";
 export const useRedirectIfAdmin = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const adminEmail = getCookie("adminEmail");
-    if (adminEmail) {
+    const adminId = getCookie("adminId");
+    if (adminId) {
       navigate("/");
     }
   }, [navigate]);
@@ -17,8 +17,8 @@ export const useRedirectIfAdmin = () => {
 export const useRequireAdmin = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const adminEmail = getCookie("adminEmail");
-    if (!adminEmail) {
+    const adminId = getCookie("adminId");
+    if (!adminId) {
       navigate("/login");
     }
   }, [navigate]);

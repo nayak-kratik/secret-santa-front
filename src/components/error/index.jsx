@@ -5,7 +5,7 @@ export const ErrorDisplay = ({
   title = "Something went wrong!",
   message = "We're having trouble loading the content. Please try again later.",
 }) => (
-  <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
+  <div className="container d-flex flex-column align-items-center justify-content-center ">
     <div className="text-center">
       <div style={{ fontSize: "5rem" }}>🎅</div>
       <h1 className="display-4 fw-bold text-danger mb-2">{title}</h1>
@@ -13,7 +13,7 @@ export const ErrorDisplay = ({
 
       <Link
         to="/"
-        className="btn btn-lg text-white rounded-pill px-4 font-weight-bold app-btn-bg-color"
+        className="btn btn-danger btn-lg text-white rounded-pill px-4 font-weight-bold"
       >
         🎁 Back to Secret Santa Home
       </Link>

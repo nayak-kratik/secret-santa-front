@@ -5,26 +5,26 @@ import { login } from "../../apis/auth";
 import { setCookie } from "../../utils/cookie";
 
 export default function useLogin() {
-  const [state, setState] = useState({
+  const [loginState, setLoginState] = useState({
     email: "",
     isSubmitting: false,
   });
 
   const navigate = useNavigate();
-  const isDisabled = !state.email || state.isSubmitting;
+  const isDisabled = !loginState.email || loginState.isSubmitting;
 
   const setEmail = (email) => {
-    setState((prev) => ({ ...prev, email }));
+    setLoginState((prev) => ({ ...prev, email }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setState((prev) => ({ ...prev, isSubmitting: true }));
+    setLoginState((prev) => ({ ...prev, isSubmitting: true }));
 
     try {
-      const response = await login(state.email);
+      const response = await login(loginState.email);
       if (response?.data?.isAdmin) {
-        setCookie("adminEmail", state.email, 2); // 2 days
+        setCookie("adminId", response.data.id, 2); // 2 days
         navigate("/");
       } else {
         toast.error("You are not authorized as admin.");
@@ -32,15 +32,15 @@ export default function useLogin() {
     } catch (error) {
       toast.error(error.message || "Login failed");
     } finally {
-      setState((prev) => ({ ...prev, isSubmitting: false }));
+      setLoginState((prev) => ({ ...prev, isSubmitting: false }));
     }
   };
 
   return {
-    email: state.email,
+    email: loginState.email,
     setEmail,
     handleSubmit,
-    isSubmitting: state.isSubmitting,
+    isSubmitting: loginState.isSubmitting,
     isDisabled,
   };
 }

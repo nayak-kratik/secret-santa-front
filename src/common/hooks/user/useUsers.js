@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getUsers, createUser, deleteUser } from "../../apis/user";
 import { toast } from "react-toastify";
 
@@ -13,7 +13,9 @@ export default function useUsers() {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
+  // UseCallback prevents unnecessary re-renders in components that depend on this function
+  // Empty dependency array means this function is created once when the hook is first used
+  const fetchUsers = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true }));
     try {
       const users = await getUsers();
@@ -25,26 +27,33 @@ export default function useUsers() {
         error: error.message || "Failed to fetch users",
       });
     }
-  };
+  }, []);
 
-  const addUser = async (user) => {
-    try {
-      await createUser(user);
-      await fetchUsers();
-      toast.success("User created successfully");
-    } catch (error) {
-      toast.error(error.message || "Failed to add user");
-    }
-  };
+  // This useCallback Depends on fetchUsers, so it will update if fetchUsers changes
+  const addUser = useCallback(
+    async (user) => {
+      try {
+        await createUser(user);
+        await fetchUsers();
+        toast.success("User created successfully");
+      } catch (error) {
+        toast.error(error.message || "Failed to add user");
+      }
+    },
+    [fetchUsers]
+  );
 
-  const removeUser = async (userId) => {
-    try {
-      await deleteUser(userId);
-      await fetchUsers();
-      toast.warning("User deleted successfully");
-    } catch (error) {
-      toast.error(error.message || "Failed to delete user");
-    }
-  };
+  const removeUser = useCallback(
+    async (userId) => {
+      try {
+        await deleteUser(userId);
+        await fetchUsers();
+        toast.warning("User deleted successfully");
+      } catch (error) {
+        toast.error(error.message || "Failed to delete user");
+      }
+    },
+    [fetchUsers]
+  );
   return { ...state, addUser, removeUser };
 }

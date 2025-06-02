@@ -24,7 +24,7 @@ export const AddNewUser = ({ onAdd }) => {
       <div className="col">
         <input
           type="text"
-          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          className="form-control form-control-lg bg-light border-0  px-4"
           placeholder="Enter name"
           name="name"
           value={form.name}
@@ -35,7 +35,7 @@ export const AddNewUser = ({ onAdd }) => {
       <div className="col">
         <input
           type="email"
-          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          className="form-control form-control-lg bg-light border-0  px-4"
           placeholder="Enter email"
           name="email"
           value={form.email}
@@ -46,7 +46,7 @@ export const AddNewUser = ({ onAdd }) => {
       <div className="col-auto">
         <button
           type="submit"
-          className="btn btn-lg text-white rounded-pill px-4 font-weight-bold btn-danger"
+          className="btn btn-lg text-white  px-4 font-weight-bold btn-danger"
           disabled={!form.name.trim() || !form.email.trim()}
         >
           Add New User

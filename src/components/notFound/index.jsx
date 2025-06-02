@@ -14,7 +14,7 @@ export const NotFound = () => (
       </p>
       <Link
         to="/"
-        className="btn btn-lg text-white rounded-pill px-4 font-weight-bold btn-danger"
+        className="btn btn-lg text-white  px-4 font-weight-bold btn-danger"
       >
         🎁 Back to Secret Santa Home
       </Link>

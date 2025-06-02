@@ -25,7 +25,7 @@ export const AddNewExchange = ({ onAdd }) => {
       <div className="col">
         <input
           type="text"
-          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          className="form-control form-control-lg bg-light border-0  px-4"
           placeholder="Enter Exchange name"
           name="name"
           value={form.name}
@@ -36,7 +36,7 @@ export const AddNewExchange = ({ onAdd }) => {
       <div className="col">
         <input
           type="text"
-          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          className="form-control form-control-lg bg-light border-0  px-4"
           placeholder="Enter description"
           name="description"
           value={form.description}
@@ -46,7 +46,7 @@ export const AddNewExchange = ({ onAdd }) => {
       <div className="col">
         <input
           type="number"
-          className="form-control form-control-lg bg-light border-0 rounded-pill px-4"
+          className="form-control form-control-lg bg-light border-0  px-4"
           placeholder="Enter Budget"
           name="budget"
           min="0"
@@ -57,7 +57,7 @@ export const AddNewExchange = ({ onAdd }) => {
       <div className="col-auto">
         <button
           type="submit"
-          className="btn btn-lg text-white rounded-pill px-4 font-weight-bold btn-danger"
+          className="btn btn-lg text-white  px-4 font-weight-bold btn-danger"
           disabled={
             !form.name.trim() || !form.description.trim() || !form.budget.trim()
           }

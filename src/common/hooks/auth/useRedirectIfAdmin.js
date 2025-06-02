@@ -13,7 +13,7 @@ export const useRedirectIfAdmin = () => {
   }, [navigate]);
 };
 
-// Use on the dashboard page: if not admin, redirect to login (/)
+// Use on the home page: if not admin, redirect to login (/login)
 export const useRequireAdmin = () => {
   const navigate = useNavigate();
   useEffect(() => {

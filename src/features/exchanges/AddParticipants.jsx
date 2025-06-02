@@ -2,14 +2,20 @@ import { useParams } from "react-router-dom";
 import useUsers from "../../common/hooks/user/useUsers";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
-import UserSelection from "./UserSelection";
+import ParticipantSelection from "./ParticipantSelection";
 import useParticipantSelection from "../../common/hooks/exchanges/useExchangeParticipantSelection";
 
 export default function AddParticipants() {
   const { id: exchangeId } = useParams();
   const { users, loading, error } = useUsers();
-  const { selectedUsers, toggleUser, selectAll, clearSelection, isSelected } =
-    useParticipantSelection();
+  const {
+    selectedUsers,
+    toggleUser,
+    selectAll,
+    clearSelection,
+    isOddParticipants,
+    isMinParticipants,
+  } = useParticipantSelection();
 
   if (loading) return <Loading message="Checking User list..." />;
   if (error) return <ErrorDisplay />;
@@ -20,8 +26,7 @@ export default function AddParticipants() {
         <h1 className="pb-2">Add Participants</h1>
         <p className="text-muted">Exchange ID: {exchangeId}</p>
       </div>
-
-      <UserSelection
+      <ParticipantSelection
         users={users}
         selectedUsers={selectedUsers}
         onSelectUser={toggleUser}
@@ -31,12 +36,19 @@ export default function AddParticipants() {
 
       <div className="mt-4">
         <button
-          className="btn btn-primary"
-          disabled={selectedUsers.size === 0}
+          className="btn  text-white  font-weight-bold btn-success"
+          disabled={
+            selectedUsers.size === 0 || isOddParticipants || isMinParticipants
+          }
           // onClick={handleAddParticipants}
         >
           Add Selected Participants ({selectedUsers.size})
         </button>
+        {(isOddParticipants || isMinParticipants) && (
+          <span className="text-danger mx-3">
+            Odd or less than 3 participants selected.
+          </span>
+        )}
       </div>
     </div>
   );

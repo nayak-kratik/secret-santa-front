@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
-export default function useParticipantSelection(initialUsers = []) {
+export default function useParticipantSelection() {
   const [selectedUsers, setSelectedUsers] = useState(new Set());
 
-  // toggle user selection
-  // Use useCallback to prevent re-renders on every render.
+  // Use useCallback Memoize the function and prevents unnecessary re-renders of child components that receive these functions as props
+  // When these functions are used in useEffect dependencies in child components, this useCallback prevents infinite loops
   const toggleUser = useCallback((userId) => {
+    // This function is used to toggle the selection of a user
     setSelectedUsers((prev) => {
       const newSelection = new Set(prev);
       if (newSelection.has(userId)) {
@@ -16,12 +17,11 @@ export default function useParticipantSelection(initialUsers = []) {
     });
   }, []);
 
-  // select all users
+  // This useCallback Depends on fetchUsers, so it will update if fetchUsers changes
   const selectAll = useCallback((userIds) => {
     setSelectedUsers(new Set(userIds));
   }, []);
 
-  // clear selection
   const clearSelection = useCallback(() => {
     setSelectedUsers(new Set());
   }, []);
@@ -31,6 +31,7 @@ export default function useParticipantSelection(initialUsers = []) {
     toggleUser,
     selectAll,
     clearSelection,
-    isSelected: (userId) => selectedUsers.has(userId),
+    isOddParticipants: selectedUsers.size > 0 && selectedUsers.size % 2 !== 0,
+    isMinParticipants: selectedUsers.size > 0 && selectedUsers.size < 3,
   };
 }

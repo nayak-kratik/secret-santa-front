@@ -13,7 +13,7 @@ export const ErrorDisplay = ({
 
       <Link
         to="/"
-        className="btn btn-danger btn-lg text-white rounded-pill px-4 font-weight-bold"
+        className="btn btn-danger btn-lg text-white  px-4 font-weight-bold"
       >
         🎁 Back to Secret Santa Home
       </Link>

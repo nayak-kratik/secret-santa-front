@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function UserSelection({
+export default function ParticipantSelection({
   users,
   selectedUsers,
   onSelectUser,
@@ -13,13 +13,13 @@ export default function UserSelection({
         <h5>Available Users</h5>
         <div>
           <button
-            className="btn btn-sm btn-outline-success me-2"
+            className="btn btn-sm text-white  px-4 font-weight-bold  btn-success me-2"
             onClick={() => onSelectAll(users.map((u) => u.id))}
           >
             Select All
           </button>
           <button
-            className="btn btn-sm btn-outline-secondary"
+            className="btn btn-sm text-white  px-4 font-weight-bold btn-danger"
             onClick={onClearSelection}
           >
             Clear Selection

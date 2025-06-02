@@ -1,21 +1,24 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './features/login';
-import Dashboard from './features/dashboard';
-import NotFound from './components/notFound';
-import Layout from './components/layout/Layout';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./features/login";
+import { NotFound } from "./components/notFound";
+import Layout from "./components/layout/Layout";
+import ManageUsers from "./features/users";
+import ManageMatches from "./features/matches";
+import ManageExchanges from "./features/exchanges";
 function App() {
-    return (
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </Router>
-    );
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ManageUsers />} />
+          <Route path="/matches" element={<ManageMatches />} />
+          <Route path="/exchanges" element={<ManageExchanges />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
 }
 
 export default App;

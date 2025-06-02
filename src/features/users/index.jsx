@@ -1,0 +1,38 @@
+import React from "react";
+import { useRequireAdmin } from "../../common/hooks/auth/useRedirectIfAdmin";
+import useUsers from "../../common/hooks/user/useUsers";
+import { Loading } from "../../components/loading";
+import { ErrorDisplay } from "../../components/error";
+import { AddNewUser } from "./AddNewUser";
+
+export default function ManageUsers() {
+  // Use on the dashboard page: if not admin, redirect to login (/)
+  useRequireAdmin();
+  const { users, loading, error, addUser } = useUsers();
+
+  if (loading) return <Loading message="Checking User list..." />;
+  if (error) return <ErrorDisplay />;
+
+  return (
+    <div className="container py-5">
+      <div className="pb-4">
+        <h1 className="pb-2">Manage Users</h1>
+        <AddNewUser onAdd={addUser} />
+      </div>
+
+      <h5 className="mb-4">Existing Users</h5>
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {users.map((user) => (
+          <div key={user.id} className="col">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">{user.name || "No Name"}</h5>
+                <p className="card-text text-muted">{user.email}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

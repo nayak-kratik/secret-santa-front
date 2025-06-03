@@ -6,26 +6,26 @@ import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
 import { ExclusionItem } from "./ExclusionItem";
 import useParticipants from "../../common/hooks/participants/useParticipants";
+import { toast } from "react-toastify";
 
 export default function SetExclusionRules() {
   const { id: exchangeId } = useParams();
   const { participants, loading, error } = useParticipants(exchangeId);
-  const { exclusions, toggleExclusion, isExcluded } =
+  const { exclusions, addOrRemoveExclusion, isExcluded, saveExclusions } =
     useExclusionRules(exchangeId);
 
   const handleSave = async () => {
     try {
       console.log("Saving exclusions:", exclusions);
-      // Replace with your API call:
-      // await api.post('/api/exclusions', exclusions);
-      alert("Exclusions saved successfully!");
+      await saveExclusions(exclusions);
+      toast.success("Exclusions saved successfully!");
     } catch (error) {
       console.error("Failed to save exclusions:", error);
-      alert("Failed to save exclusions");
+      toast.error("Failed to save exclusions");
     }
   };
 
-  if (loading) return <loading message="Loading participants..." />;
+  if (loading) return <Loading message="Loading participants..." />;
   if (error) return <ErrorDisplay error={error} />;
 
   return (
@@ -46,7 +46,7 @@ export default function SetExclusionRules() {
               participant={participant}
               otherParticipants={otherParticipants}
               isExcluded={isExcluded}
-              onToggle={toggleExclusion}
+              onToggle={addOrRemoveExclusion}
             />
           );
         })}
@@ -60,7 +60,7 @@ export default function SetExclusionRules() {
           Back
         </button>
         <button className="btn btn-success" onClick={handleSave}>
-          Save Exclusion Rules
+          Save Exclusion Rules and Generate Matches
         </button>
       </div>
     </div>

@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 
 export const useExclusionRules = (participants = []) => {
   const [exclusions, setExclusions] = useState({});
-  const [isSaving, setIsSaving] = useState(false);
 
   // Toggle exclusion for a participant
   const toggleExclusion = useCallback((participantId, excludedId) => {
@@ -23,17 +22,11 @@ export const useExclusionRules = (participants = []) => {
 
   // Save exclusions to the server
   const saveExclusions = useCallback(async () => {
-    setIsSaving(true);
     try {
       // TODO: Replace with actual API call
       toast.success("Exclusion rules saved successfully");
-      return true;
     } catch (error) {
-      console.error("Failed to save exclusions:", error);
       toast.error("Failed to save exclusion rules");
-      return false;
-    } finally {
-      setIsSaving(false);
     }
   }, [exclusions]);
 
@@ -41,6 +34,5 @@ export const useExclusionRules = (participants = []) => {
     exclusions,
     toggleExclusion,
     saveExclusions,
-    isSaving,
   };
 };

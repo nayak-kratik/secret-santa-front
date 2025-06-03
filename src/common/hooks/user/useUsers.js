@@ -16,16 +16,21 @@ export default function useUsers() {
   // UseCallback prevents unnecessary re-renders in components that depend on this function
   // Empty dependency array means this function is created once when the hook is first used
   const fetchUsers = useCallback(async () => {
-    setUserState((prev) => ({ ...prev, loading: true }));
+    setUserState((prev) => ({ ...prev, loading: true, error: null }));
     try {
       const users = await getUsers();
-      setUserState({ users: users.data, loading: false, error: null });
+      setUserState((prev) => ({
+        ...prev,
+        users: users.data,
+        loading: false,
+        error: null,
+      }));
     } catch (error) {
-      setUserState({
-        users: [],
+      setUserState((prev) => ({
+        ...prev,
         loading: false,
         error: error.message || "Failed to fetch users",
-      });
+      }));
     }
   }, []);
 

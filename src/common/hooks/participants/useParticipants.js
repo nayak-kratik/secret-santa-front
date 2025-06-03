@@ -25,6 +25,7 @@ export default function useParticipants(exchangeId) {
     try {
       const participants = await fetchAllExchangeParticipants(exchangeId);
       setParticipantState((prev) => ({
+        ...prev,
         participants: participants.data,
         loading: false,
         error: null,
@@ -44,20 +45,11 @@ export default function useParticipants(exchangeId) {
       return false;
     }
 
-    setParticipantState((prev) => ({ ...prev, loading: true, error: null }));
-
     try {
       await addParticipantsToExchange(userIds, exchangeId);
       toast.success("Participants added to exchange successfully");
-      return true;
     } catch (error) {
-      const errorMessage =
-        error.message || "Failed to add participants to exchange.";
-      toast.error(errorMessage);
-      setParticipantState((prev) => ({ ...prev, error: errorMessage }));
-      return false;
-    } finally {
-      setParticipantState((prev) => ({ ...prev, loading: false }));
+      toast.error(error.message || "Failed to add participants to exchange.");
     }
   }, []);
 

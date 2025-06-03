@@ -25,7 +25,7 @@ function App() {
             path="/exchange/:id/exclusion"
             element={<SetExclusionRules />}
           />
-          <Route path="/exchange/:id/matches" element={<ViewMatch />} />
+          <Route path="/exchange/:exchangeId/matches" element={<ViewMatch />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

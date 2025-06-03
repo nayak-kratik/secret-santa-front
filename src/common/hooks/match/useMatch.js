@@ -22,19 +22,11 @@ export const useMatch = (exchangeId) => {
         error: null,
       });
     } catch (err) {
-      console.error("Error fetching matches:", err);
-      const errorMessage =
-        err.response?.data?.message || "Failed to load matches";
-
       setMatchState({
         matches: [],
         loading: false,
-        error: errorMessage,
+        error: err.message || "Failed to load matches",
       });
-
-      if (err.response?.status !== 404) {
-        toast.error(errorMessage);
-      }
     }
   }, [exchangeId]);
 

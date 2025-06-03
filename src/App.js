@@ -7,6 +7,7 @@ import ManageMatches from "./features/matches";
 import ManageExchanges from "./features/exchanges";
 import AddParticipants from "./features/participant";
 import SetExclusionRules from "./features/exclusion";
+import ViewMatch from "./features/matches/ViewMatch";
 function App() {
   return (
     <Router>
@@ -24,7 +25,7 @@ function App() {
             path="/exchange/:id/exclusion"
             element={<SetExclusionRules />}
           />
-          <Route path="/exchange/:id/matches" element={<ManageMatches />} />
+          <Route path="/exchange/:id/matches" element={<ViewMatch />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,31 +1,50 @@
 import { useParams } from "react-router-dom";
-import useUsers from "../../../common/hooks/user/useUsers";
-import { Loading } from "../../../components/loading";
-import { ErrorDisplay } from "../../../components/error";
+import useUsers from "../../common/hooks/user/useUsers";
+import { Loading } from "../../components/loading";
+import { ErrorDisplay } from "../../components/error";
 import ParticipantSelection from "./ParticipantSelection";
-import useParticipantSelection from "../../../common/hooks/exchanges/useExchangeParticipantSelection";
-import useParticipants from "../../../common/hooks/participants/useParticipants";
+import useParticipantSelection from "../../common/hooks/exchanges/useExchangeParticipantSelection";
+import useParticipants from "../../common/hooks/participants/useParticipants";
 import { useNavigate } from "react-router-dom";
 
 export default function AddParticipants() {
   const { id: exchangeId } = useParams();
-  const { users, loading, error } = useUsers();
+  const navigate = useNavigate();
+  // Fetch users and participants
+  const { users, loading: usersLoading, error: usersError } = useUsers();
+
+  const {
+    participants,
+    loading: participantsLoading,
+    error: participantsError,
+    addParticipants,
+  } = useParticipants(exchangeId);
+
+  // Handle participant selection
   const { selectedUsers, toggleUser, selectAll, clearSelection } =
     useParticipantSelection();
-  const { addParticipants } = useParticipants(exchangeId);
-  const navigate = useNavigate();
 
+  // Handle adding participants
   const handleAddParticipants = async () => {
     const userIds = Array.from(selectedUsers);
 
     const success = await addParticipants(userIds);
     if (success) {
+      clearSelection();
       navigate(`/exchange/${exchangeId}/exclusion`);
     }
   };
 
-  if (loading) return <Loading message="Checking User list..." />;
-  if (error) return <ErrorDisplay />;
+  const availableUsers = users.filter(
+    (user) => !participants.some((p) => p.user.id === user.id)
+  );
+
+  if (usersLoading || participantsLoading) {
+    return <Loading message="Checking User list..." />;
+  }
+  if (usersError || participantsError) {
+    return <ErrorDisplay />;
+  }
 
   return (
     <div className="container py-5">
@@ -34,10 +53,10 @@ export default function AddParticipants() {
         <p className="text-muted">Exchange ID: {exchangeId}</p>
       </div>
       <ParticipantSelection
-        users={users}
+        users={availableUsers}
         selectedUsers={selectedUsers}
         onSelectUser={toggleUser}
-        onSelectAll={selectAll}
+        onSelectAll={() => selectAll(availableUsers.map((u) => u.id))}
         onClearSelection={clearSelection}
       />
 

@@ -1,6 +1,9 @@
 export const Header = () => (
   <header className="sticky-top bg-light border-bottom">
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary "
+      data-bs-theme="dark"
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           <div style={{ fontSize: "2rem" }}>🎅</div>

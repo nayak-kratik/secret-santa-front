@@ -29,7 +29,13 @@ export default function ManageExchanges() {
             <div className="card h-100 shadow-sm">
               <div className="card-body">
                 <div className="d-flex justify-content-between">
-                  <h5 className="card-title">{exchange.name || "No Name"}</h5>
+                  <h5 className="card-title">
+                    {exchange.name || "No Name"}
+                    <small className="text-muted">
+                      {" "}
+                      ({`Id: ${exchange.id}`})
+                    </small>
+                  </h5>
                   <h5 className="card-text text-muted ">
                     Budget: ${exchange.budget}
                   </h5>

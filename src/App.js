@@ -6,6 +6,7 @@ import ManageUsers from "./features/users";
 import ManageMatches from "./features/matches";
 import ManageExchanges from "./features/exchanges";
 import AddParticipants from "./features/exchanges/participant";
+import SetExclusionRules from "./features/exchanges/exclusion";
 function App() {
   return (
     <Router>
@@ -18,6 +19,10 @@ function App() {
           <Route
             path="/exchange/:id/add-participants"
             element={<AddParticipants />}
+          />
+          <Route
+            path="/exchange/:id/exclusion"
+            element={<SetExclusionRules />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

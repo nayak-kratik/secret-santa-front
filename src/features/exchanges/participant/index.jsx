@@ -10,23 +10,17 @@ import { useNavigate } from "react-router-dom";
 export default function AddParticipants() {
   const { id: exchangeId } = useParams();
   const { users, loading, error } = useUsers();
-  const {
-    selectedUsers,
-    toggleUser,
-    selectAll,
-    clearSelection,
-    isOddParticipants,
-    isMinParticipants,
-  } = useParticipantSelection();
-  const { addParticipants } = useParticipants();
+  const { selectedUsers, toggleUser, selectAll, clearSelection } =
+    useParticipantSelection();
+  const { addParticipants } = useParticipants(exchangeId);
   const navigate = useNavigate();
 
   const handleAddParticipants = async () => {
     const userIds = Array.from(selectedUsers);
 
-    const success = await addParticipants(userIds, exchangeId);
+    const success = await addParticipants(userIds);
     if (success) {
-      navigate(`/exchange/${exchangeId}`);
+      navigate(`/exchange/${exchangeId}/exclusion`);
     }
   };
 
@@ -50,18 +44,11 @@ export default function AddParticipants() {
       <div className="mt-4">
         <button
           className="btn  text-white  font-weight-bold btn-success"
-          disabled={
-            selectedUsers.size === 0 || isOddParticipants || isMinParticipants
-          }
+          disabled={selectedUsers.size === 0}
           onClick={handleAddParticipants}
         >
           Add Selected Participants ({selectedUsers.size})
         </button>
-        {(isOddParticipants || isMinParticipants) && (
-          <span className="text-danger mx-3">
-            Odd or less than 3 participants selected.
-          </span>
-        )}
       </div>
     </div>
   );

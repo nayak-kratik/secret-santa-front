@@ -10,7 +10,7 @@ export default function ParticipantSelection({
   return (
     <div className="container py-3">
       <div className="d-flex justify-content-between mb-4">
-        <h5>Available Users</h5>
+        <h5>All Available Users</h5>
         <div>
           <button
             className="btn btn-sm text-white  px-4 font-weight-bold  btn-success me-2"

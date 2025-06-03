@@ -31,7 +31,5 @@ export default function useParticipantSelection() {
     toggleUser,
     selectAll,
     clearSelection,
-    isOddParticipants: selectedUsers.size > 0 && selectedUsers.size % 2 !== 0,
-    isMinParticipants: selectedUsers.size > 0 && selectedUsers.size < 3,
   };
 }

@@ -5,3 +5,7 @@ export const addParticipantsToExchange = (userIds, exchangeId) => {
     giftExchangeId: exchangeId,
   });
 };
+
+export const fetchAllExchangeParticipants = (exchangeId) => {
+  return api.get(`/participants/exchange/${exchangeId}`);
+};

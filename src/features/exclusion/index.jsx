@@ -50,14 +50,14 @@ export default function SetExclusionRules() {
         })}
       </div>
 
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-start">
         <button
-          className="btn btn-outline-secondary"
+          className="btn btn-danger me-2"
           onClick={() => window.history.back()}
         >
           Back
         </button>
-        <button className="btn btn-success" onClick={handleSave}>
+        <button className="btn btn-success me-2" onClick={handleSave}>
           Save Exclusion Rules and Generate Matches
         </button>
       </div>

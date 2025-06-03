@@ -50,11 +50,6 @@ export const useExclusionRules = (exchangeId) => {
   );
 
   const saveExclusions = useCallback(async (exclusions) => {
-    if (!exclusions?.length) {
-      toast.error("No exclusions provided");
-      return false;
-    }
-
     try {
       await addExclusionRule(exclusions);
       toast.success("Generating Matches");

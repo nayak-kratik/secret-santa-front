@@ -59,13 +59,22 @@ export default function AddParticipants() {
       />
 
       <div className="mt-4">
-        <button
-          className="btn  text-white  font-weight-bold btn-success"
-          disabled={selectedUsers.size === 0}
-          onClick={handleAddParticipants}
-        >
-          Add Selected Participants ({selectedUsers.size})
-        </button>
+        {availableUsers.length ? (
+          <button
+            className="btn  text-white  font-weight-bold btn-success"
+            disabled={selectedUsers.size === 0}
+            onClick={handleAddParticipants}
+          >
+            Add Selected Participants ({selectedUsers.size})
+          </button>
+        ) : (
+          <button
+            className="btn text-white  font-weight-bold btn-success"
+            onClick={() => navigate(`/exchange/${exchangeId}/exclusion`)}
+          >
+            No more participants available. Continue to Exclusions
+          </button>
+        )}
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export default function Login() {
             className="btn btn-lg text-white  px-4 font-weight-bold btn-danger w-100"
             disabled={isDisabled}
           >
-            Login
+            Login or Create Account
           </button>
         </form>
       </div>

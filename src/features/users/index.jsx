@@ -1,13 +1,10 @@
 import React from "react";
-import { useRequireAdmin } from "../../common/hooks/auth/useRedirectIfAdmin";
 import useUsers from "../../common/hooks/user/useUsers";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
 import { AddNewUser } from "./AddNewUser";
 
 export default function ManageUsers() {
-  // Use on the dashboard page: if not admin, redirect to login (/)
-  useRequireAdmin();
   const { users, loading, error, addUser, removeUser } = useUsers();
 
   if (loading) return <Loading message="Checking User list..." />;

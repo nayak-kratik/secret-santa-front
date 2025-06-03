@@ -8,7 +8,7 @@ import useParticipants from "../../common/hooks/participants/useParticipants";
 import { useNavigate } from "react-router-dom";
 
 export default function AddParticipants() {
-  const { id: exchangeId } = useParams();
+  const { exchangeId } = useParams();
   const navigate = useNavigate();
   // Fetch users and participants
   const { users, loading: usersLoading, error: usersError } = useUsers();
@@ -20,19 +20,19 @@ export default function AddParticipants() {
     addParticipants,
   } = useParticipants(exchangeId);
 
-  // Handle participant selection
+  // Handle participant selection from hooks
   const { selectedUsers, toggleUser, selectAll, clearSelection } =
     useParticipantSelection();
 
   // Handle adding participants
   const handleAddParticipants = async () => {
     const userIds = Array.from(selectedUsers);
-
     await addParticipants(userIds);
     clearSelection();
     navigate(`/exchange/${exchangeId}/exclusion`);
   };
 
+  // Filter out participants that are already in the exchange
   const availableUsers = users.filter(
     (user) => !participants.some((p) => p.user.id === user.id)
   );

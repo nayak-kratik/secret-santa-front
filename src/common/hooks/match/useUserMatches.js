@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { getAllAdminMatches } from "../../apis/match";
 import { getCookie } from "../../utils/cookie";
 
-export const useAllAdminMatches = () => {
+export const useAllMatches = () => {
   const [matchState, setMatchState] = useState({
     matches: [],
     loading: false,
@@ -46,4 +46,4 @@ export const useAllAdminMatches = () => {
   };
 };
 
-export default useAllAdminMatches;
+export default useAllMatches;

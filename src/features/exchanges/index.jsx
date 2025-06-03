@@ -1,5 +1,4 @@
 import React from "react";
-import { useRequireAdmin } from "../../common/hooks/auth/useRedirectIfAdmin";
 import useExchanges from "../../common/hooks/exchanges/useExchanges";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
@@ -7,8 +6,6 @@ import { AddNewExchange } from "./AddNewExchange";
 import { useNavigate } from "react-router-dom";
 
 export default function ManageExchanges() {
-  // Use on the dashboard page: if not admin, redirect to login (/)
-  useRequireAdmin();
   const navigate = useNavigate();
   const { exchanges, loading, error, addExchange, removeExchange } =
     useExchanges();

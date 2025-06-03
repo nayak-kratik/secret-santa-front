@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SetExclusionRules() {
   const navigate = useNavigate();
-  const { id: exchangeId } = useParams();
+  const { exchangeId } = useParams();
   const { participants, loading, error } = useParticipants(exchangeId);
   const { exclusions, addOrRemoveExclusion, isExcluded, saveExclusions } =
     useExclusionRules(exchangeId);

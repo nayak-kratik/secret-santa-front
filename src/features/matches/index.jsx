@@ -1,14 +1,11 @@
 import React from "react";
-import { Container, Table, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Table } from "react-bootstrap";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
-import { useRequireAdmin } from "../../common/hooks/auth/useRedirectIfAdmin";
-import useAllAdminMatches from "../../common/hooks/match/useUserMatches";
+import useAllMatches from "../../common/hooks/match/useUserMatches";
 
 export default function AllMatches() {
-  useRequireAdmin();
-  const { matches: exchanges, loading, error } = useAllAdminMatches();
+  const { matches: exchanges, loading, error } = useAllMatches();
 
   if (loading) return <Loading message="Loading all matches..." />;
   if (error) return <ErrorDisplay error={error} />;

@@ -6,10 +6,15 @@ import { Container, Table, Button } from "react-bootstrap";
 import useMatch from "../../common/hooks/match/useMatch";
 
 export default function ViewMatch() {
+  // Get exchangeId from URL params using useParams hook
   const { exchangeId } = useParams();
+
+  // Use useMatch hook to get matches for the exchange
   const { matches, loading, error } = useMatch(exchangeId);
+
   if (loading) return <Loading message="Loading your matches..." />;
   if (error) return <ErrorDisplay error={error} />;
+
   return (
     <div className="py-4 container">
       <div className="d-flex justify-content-between align-items-center mb-4">

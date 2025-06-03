@@ -8,24 +8,33 @@ import ManageExchanges from "./features/exchanges";
 import AddParticipants from "./features/participant";
 import SetExclusionRules from "./features/exclusion";
 import ViewMatch from "./features/matches/ViewMatch";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
+
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<ManageUsers />} />
-          <Route path="/matches" element={<ManageMatches />} />
-          <Route path="/exchanges" element={<ManageExchanges />} />
-          <Route
-            path="/exchange/:id/add-participants"
-            element={<AddParticipants />}
-          />
-          <Route
-            path="/exchange/:id/exclusion"
-            element={<SetExclusionRules />}
-          />
-          <Route path="/exchange/:exchangeId/matches" element={<ViewMatch />} />
+
+          {/* Protected  Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<ManageUsers />} />
+            <Route path="/matches" element={<ManageMatches />} />
+            <Route path="/exchanges" element={<ManageExchanges />} />
+            <Route
+              path="/exchange/:exchangeId/add-participants"
+              element={<AddParticipants />}
+            />
+            <Route
+              path="/exchange/:exchangeId/exclusion"
+              element={<SetExclusionRules />}
+            />
+            <Route
+              path="/exchange/:exchangeId/matches"
+              element={<ViewMatch />}
+            />
+          </Route>
 
           <Route path="*" element={<NotFound />} />
         </Routes>

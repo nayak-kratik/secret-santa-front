@@ -20,8 +20,13 @@ export default function useExchanges() {
 
   const fetchExchanges = useCallback(async () => {
     setExchangeState((prev) => ({ ...prev, loading: true }));
+    const adminId = getCookie("adminId");
+    if (!adminId) {
+      toast.error("Admin session expired. Please login again.");
+      return;
+    }
     try {
-      const exchanges = await getExchanges();
+      const exchanges = await getExchanges(adminId);
       setExchangeState({
         exchanges: exchanges.data,
         loading: false,
@@ -38,13 +43,13 @@ export default function useExchanges() {
 
   const addExchange = useCallback(
     async (exchange) => {
-      const createdById = getCookie("adminId");
-      if (!createdById) {
+      const adminId = getCookie("adminId");
+      if (!adminId) {
         toast.error("Admin session expired. Please login again.");
         return;
       }
       try {
-        await createExchange({ ...exchange, createdById });
+        await createExchange({ ...exchange, createdById: adminId });
         await fetchExchanges();
         toast.success("Exchange created successfully");
       } catch (error) {

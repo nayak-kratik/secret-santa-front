@@ -29,7 +29,7 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="btn btn-lg text-white  px-4 font-weight-bold btn-danger w-100"
+            className="btn btn-lg text-white  px-4 font-weight-bold btn-success w-100"
             disabled={isDisabled}
           >
             Login or Create Account

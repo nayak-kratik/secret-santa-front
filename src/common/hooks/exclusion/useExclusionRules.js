@@ -1,38 +1,55 @@
-// src/features/exchanges/exclusion/hooks/useExclusionRules.js
 import { useState, useCallback } from "react";
-import { toast } from "react-toastify";
 
-export const useExclusionRules = (participants = []) => {
-  const [exclusions, setExclusions] = useState({});
+export const useExclusionRules = (exchangeId) => {
+  const [exclusions, setExclusions] = useState([]);
 
-  // Toggle exclusion for a participant
-  const toggleExclusion = useCallback((participantId, excludedId) => {
-    setExclusions((prev) => {
-      const currentExclusions = prev[participantId] || [];
-      const newExclusions = currentExclusions.includes(excludedId)
-        ? currentExclusions.filter((id) => id !== excludedId)
-        : [...currentExclusions, excludedId];
+  // Add or remove an exclusion
+  const toggleExclusion = useCallback(
+    (participantId, excludedId) => {
+      setExclusions((prev) => {
+        const exists = prev.some(
+          (e) =>
+            e.participant_id === participantId &&
+            e.excluded_participant_id === excludedId
+        );
 
-      return {
-        ...prev,
-        [participantId]: newExclusions,
-      };
-    });
-  }, []);
+        if (exists) {
+          return prev.filter(
+            (e) =>
+              !(
+                e.participant_id === participantId &&
+                e.excluded_participant_id === excludedId
+              )
+          );
+        }
 
-  // Save exclusions to the server
-  const saveExclusions = useCallback(async () => {
-    try {
-      // TODO: Replace with actual API call
-      toast.success("Exclusion rules saved successfully");
-    } catch (error) {
-      toast.error("Failed to save exclusion rules");
-    }
-  }, [exclusions]);
+        return [
+          ...prev,
+          {
+            gift_exchange_id: parseInt(exchangeId, 10),
+            participant_id: parseInt(participantId, 10),
+            excluded_participant_id: parseInt(excludedId, 10),
+          },
+        ];
+      });
+    },
+    [exchangeId]
+  );
+
+  const isExcluded = useCallback(
+    (participantId, excludedId) => {
+      return exclusions.some(
+        (e) =>
+          e.participant_id === participantId &&
+          e.excluded_participant_id === excludedId
+      );
+    },
+    [exclusions]
+  );
 
   return {
     exclusions,
     toggleExclusion,
-    saveExclusions,
+    isExcluded,
   };
 };

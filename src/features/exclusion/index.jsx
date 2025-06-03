@@ -1,17 +1,31 @@
+// src/features/exclusion/index.jsx
+
 import { useParams } from "react-router-dom";
+import { useExclusionRules } from "../../common/hooks/exclusion/useExclusionRules";
 import { Loading } from "../../components/loading";
 import { ErrorDisplay } from "../../components/error";
-import useParticipants from "../../common/hooks/participants/useParticipants";
 import { ExclusionItem } from "./ExclusionItem";
-import { useExclusionRules } from "../../common/hooks/exclusion/useExclusionRules";
+import useParticipants from "../../common/hooks/participants/useParticipants";
 
 export default function SetExclusionRules() {
   const { id: exchangeId } = useParams();
   const { participants, loading, error } = useParticipants(exchangeId);
-  const { exclusions, toggleExclusion, saveExclusions, isSaving } =
-    useExclusionRules(participants);
+  const { exclusions, toggleExclusion, isExcluded } =
+    useExclusionRules(exchangeId);
 
-  if (loading) return <Loading message="Loading participants..." />;
+  const handleSave = async () => {
+    try {
+      console.log("Saving exclusions:", exclusions);
+      // Replace with your API call:
+      // await api.post('/api/exclusions', exclusions);
+      alert("Exclusions saved successfully!");
+    } catch (error) {
+      console.error("Failed to save exclusions:", error);
+      alert("Failed to save exclusions");
+    }
+  };
+
+  if (loading) return <loading message="Loading participants..." />;
   if (error) return <ErrorDisplay error={error} />;
 
   return (
@@ -19,21 +33,23 @@ export default function SetExclusionRules() {
       <div className="pb-4">
         <h1 className="pb-2">Set Exclusion Rules</h1>
         <p className="text-muted">Exchange ID: {exchangeId}</p>
-        <p className="text-muted">
-          Select participants who should not be paired with each other
-        </p>
       </div>
 
       <div className="mb-4">
-        {participants.map((participant) => (
-          <ExclusionItem
-            key={participant.id}
-            participant={participant}
-            allParticipants={participants}
-            selectedExclusions={exclusions[participant.id] || []}
-            onExclusionChange={toggleExclusion}
-          />
-        ))}
+        {participants.map((participant) => {
+          const otherParticipants = participants.filter(
+            (p) => p.id !== participant.id
+          );
+          return (
+            <ExclusionItem
+              key={participant.id}
+              participant={participant}
+              otherParticipants={otherParticipants}
+              isExcluded={isExcluded}
+              onToggle={toggleExclusion}
+            />
+          );
+        })}
       </div>
 
       <div className="d-flex justify-content-between">
@@ -43,12 +59,8 @@ export default function SetExclusionRules() {
         >
           Back
         </button>
-        <button
-          className="btn btn-success"
-          // onClick={handleSave}
-          disabled={isSaving}
-        >
-          {isSaving ? "Saving..." : "Save Exclusion Rules"}
+        <button className="btn btn-success" onClick={handleSave}>
+          Save Exclusion Rules
         </button>
       </div>
     </div>

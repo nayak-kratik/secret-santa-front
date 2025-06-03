@@ -28,11 +28,9 @@ export default function AddParticipants() {
   const handleAddParticipants = async () => {
     const userIds = Array.from(selectedUsers);
 
-    const success = await addParticipants(userIds);
-    if (success) {
-      clearSelection();
-      navigate(`/exchange/${exchangeId}/exclusion`);
-    }
+    await addParticipants(userIds);
+    clearSelection();
+    navigate(`/exchange/${exchangeId}/exclusion`);
   };
 
   const availableUsers = users.filter(

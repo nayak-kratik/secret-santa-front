@@ -16,11 +16,9 @@ export default function SetExclusionRules() {
 
   const handleSave = async () => {
     try {
-      console.log("Saving exclusions:", exclusions);
       await saveExclusions(exclusions);
       toast.success("Exclusions saved successfully!");
     } catch (error) {
-      console.error("Failed to save exclusions:", error);
       toast.error("Failed to save exclusions");
     }
   };

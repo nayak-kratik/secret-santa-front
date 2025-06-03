@@ -1,4 +1,3 @@
-// src/features/exclusion/ExclusionItem.jsx
 export const ExclusionItem = ({
   participant,
   otherParticipants,

@@ -1,5 +1,3 @@
-// src/features/exclusion/index.jsx
-
 import { useParams } from "react-router-dom";
 import { useExclusionRules } from "../../common/hooks/exclusion/useExclusionRules";
 import { Loading } from "../../components/loading";
@@ -7,8 +5,10 @@ import { ErrorDisplay } from "../../components/error";
 import { ExclusionItem } from "./ExclusionItem";
 import useParticipants from "../../common/hooks/participants/useParticipants";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SetExclusionRules() {
+  const navigate = useNavigate();
   const { id: exchangeId } = useParams();
   const { participants, loading, error } = useParticipants(exchangeId);
   const { exclusions, addOrRemoveExclusion, isExcluded, saveExclusions } =
@@ -18,6 +18,7 @@ export default function SetExclusionRules() {
     try {
       await saveExclusions(exclusions);
       toast.success("Exclusions saved successfully!");
+      navigate(`/exchange/${exchangeId}/matches`);
     } catch (error) {
       toast.error("Failed to save exclusions");
     }

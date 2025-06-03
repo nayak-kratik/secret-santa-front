@@ -51,7 +51,7 @@ export const useExclusionRules = (exchangeId) => {
 
   const saveExclusions = useCallback(async (exclusions) => {
     try {
-      await addExclusionRule(exclusions);
+      await addExclusionRule(exclusions, exchangeId);
       toast.success("Generating Matches");
     } catch (error) {
       toast.error(error.message || "Failed to save exclusions");

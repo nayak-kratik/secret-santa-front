@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import useUsers from "../../common/hooks/user/useUsers";
-import { Loading } from "../../components/loading";
-import { ErrorDisplay } from "../../components/error";
+import useUsers from "../../../common/hooks/user/useUsers";
+import { Loading } from "../../../components/loading";
+import { ErrorDisplay } from "../../../components/error";
 import ParticipantSelection from "./ParticipantSelection";
-import useParticipantSelection from "../../common/hooks/exchanges/useExchangeParticipantSelection";
+import useParticipantSelection from "../../../common/hooks/exchanges/useExchangeParticipantSelection";
+import useParticipants from "../../../common/hooks/participants/useParticipants";
+import { useNavigate } from "react-router-dom";
 
 export default function AddParticipants() {
   const { id: exchangeId } = useParams();
@@ -16,6 +18,17 @@ export default function AddParticipants() {
     isOddParticipants,
     isMinParticipants,
   } = useParticipantSelection();
+  const { addParticipants } = useParticipants();
+  const navigate = useNavigate();
+
+  const handleAddParticipants = async () => {
+    const userIds = Array.from(selectedUsers);
+
+    const success = await addParticipants(userIds, exchangeId);
+    if (success) {
+      navigate(`/exchange/${exchangeId}`);
+    }
+  };
 
   if (loading) return <Loading message="Checking User list..." />;
   if (error) return <ErrorDisplay />;
@@ -40,7 +53,7 @@ export default function AddParticipants() {
           disabled={
             selectedUsers.size === 0 || isOddParticipants || isMinParticipants
           }
-          // onClick={handleAddParticipants}
+          onClick={handleAddParticipants}
         >
           Add Selected Participants ({selectedUsers.size})
         </button>

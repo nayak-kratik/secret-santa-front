@@ -8,7 +8,7 @@ import {
 import { getCookie } from "../../utils/cookie";
 
 export default function useExchanges() {
-  const [state, setState] = useState({
+  const [exchangeState, setExchangeState] = useState({
     exchanges: [],
     loading: true,
     error: null,
@@ -19,12 +19,16 @@ export default function useExchanges() {
   }, []);
 
   const fetchExchanges = useCallback(async () => {
-    setState((prev) => ({ ...prev, loading: true }));
+    setExchangeState((prev) => ({ ...prev, loading: true }));
     try {
       const exchanges = await getExchanges();
-      setState({ exchanges: exchanges.data, loading: false, error: null });
+      setExchangeState({
+        exchanges: exchanges.data,
+        loading: false,
+        error: null,
+      });
     } catch (error) {
-      setState({
+      setExchangeState({
         exchanges: [],
         loading: false,
         error: error.message || "Failed to fetch exchanges",
@@ -62,5 +66,6 @@ export default function useExchanges() {
     },
     [fetchExchanges]
   );
-  return { ...state, addExchange, removeExchange };
+
+  return { ...exchangeState, addExchange, removeExchange };
 }

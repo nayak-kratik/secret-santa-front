@@ -5,7 +5,7 @@ import Layout from "./components/layout/Layout";
 import ManageUsers from "./features/users";
 import ManageMatches from "./features/matches";
 import ManageExchanges from "./features/exchanges";
-import AddParticipants from "./features/exchanges/AddParticipants";
+import AddParticipants from "./features/exchanges/participant";
 function App() {
   return (
     <Router>

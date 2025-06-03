@@ -12,7 +12,6 @@ export default function ManageExchanges() {
   const navigate = useNavigate();
   const { exchanges, loading, error, addExchange, removeExchange } =
     useExchanges();
-
   if (loading) return <Loading message="Checking Exchange list..." />;
   if (error) return <ErrorDisplay />;
 

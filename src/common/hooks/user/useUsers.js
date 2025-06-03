@@ -3,7 +3,7 @@ import { getUsers, createUser, deleteUser } from "../../apis/user";
 import { toast } from "react-toastify";
 
 export default function useUsers() {
-  const [state, setState] = useState({
+  const [userState, setUserState] = useState({
     users: [],
     loading: true,
     error: null,
@@ -16,12 +16,12 @@ export default function useUsers() {
   // UseCallback prevents unnecessary re-renders in components that depend on this function
   // Empty dependency array means this function is created once when the hook is first used
   const fetchUsers = useCallback(async () => {
-    setState((prev) => ({ ...prev, loading: true }));
+    setUserState((prev) => ({ ...prev, loading: true }));
     try {
       const users = await getUsers();
-      setState({ users: users.data, loading: false, error: null });
+      setUserState({ users: users.data, loading: false, error: null });
     } catch (error) {
-      setState({
+      setUserState({
         users: [],
         loading: false,
         error: error.message || "Failed to fetch users",
@@ -55,5 +55,5 @@ export default function useUsers() {
     },
     [fetchUsers]
   );
-  return { ...state, addUser, removeUser };
+  return { ...userState, addUser, removeUser };
 }

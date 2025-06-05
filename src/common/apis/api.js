@@ -1,7 +1,3 @@
-// Get the base API URL from the environment variables.
-const BASE_URL = process.env.REACT_APP_API_URL || "";
-console.log("API URL:", process.env.REACT_APP_API_URL);
-
 // Generic wrapper for all HTTP methods
 async function apiFetch(url, options = {}) {
   const { method = "GET", headers = {}, body, ...rest } = options;
@@ -21,7 +17,10 @@ async function apiFetch(url, options = {}) {
     fetchOptions.body = JSON.stringify(body);
   }
   // Perform the actual fetch call using the full URL
-  const res = await fetch(`${BASE_URL}${url}`, fetchOptions);
+  const res = await fetch(
+    `${process.env.REACT_APP_API_URL}${url}`,
+    fetchOptions
+  );
 
   // Handle non-2xx responses by throwing a proper err
   if (!res.ok) {
